@@ -8,13 +8,21 @@ let guess = [];
 
 let grid = document.getElementById("g1").getElementsByClassName("tile");
 
+// still need the Clr part of fillClr
+
+function fillClr() {
+  for (let i = 0; i < guess.length; i++) {
+    grid[i].innerHTML = guess[i];
+  }
+}
+
+// may well have to rework these event listeners since they're accepting numbers and characters
+
 document.addEventListener("keydown", function (event) {
   if (event.key === "Backspace" && guess.length > 0) {
     console.log("popped");
     guess.splice(-1, 1);
-    for (let i = 0; i < guess.length; i++) {
-      grid[i].innerHTML = guess[i];
-    }
+    fillClr();
     console.log(guess);
   }
 });
@@ -23,9 +31,7 @@ document.addEventListener("keypress", function (event) {
   if (event.key !== "Enter" && guess.length < 5) {
     console.log("works");
     guess.push(event.key);
-    for (let i = 0; i < guess.length; i++) {
-      grid[i].innerHTML = guess[i];
-    }
+    fillClr();
   }
   let test = event.key;
   console.log(test);
