@@ -8,11 +8,14 @@ let guess = [];
 
 let grid = document.getElementById("g1").getElementsByClassName("tile");
 
-// still need the Clr part of fillClr
-
 function fillClr() {
   for (let i = 0; i < guess.length; i++) {
     grid[i].innerHTML = guess[i];
+  }
+  if (guess.length < 5) {
+    for (let i = guess.length; i < 5; i++) {
+      grid[i].innerHTML = "";
+    }
   }
 }
 
@@ -32,9 +35,8 @@ document.addEventListener("keypress", function (event) {
     console.log("works");
     guess.push(event.key);
     fillClr();
+    console.log(guess);
   }
-  let test = event.key;
-  console.log(test);
-  console.log(guess);
-  console.log(grid);
+  if (event.key === "Enter") {
+  }
 });
