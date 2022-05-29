@@ -1,8 +1,59 @@
-let dict = ["STORY", "ALIVE", "BLEAK", "GLORY"];
+let dict = [
+  "STORY",
+  "ALIVE",
+  "BLEAK",
+  "GLORY",
+  "SWORD",
+  "APPLE",
+  "BREAK",
+  "GROUP",
+  "CRABS",
+  "PALES",
+  "SORRY",
+  "QUART",
+  "OPENS",
+  "CRATE",
+  "DEALS",
+  "FLEAS",
+  "HIRED",
+  "JERKS",
+  "LEAKY",
+  "OPERA",
+  "READY",
+  "TEARY",
+  "VIALS",
+  "FLARE",
+  "HOURS",
+  "JEERS",
+  "LOBES",
+  "OUTRO",
+  "RALLY",
+  "TABLE",
+  "VOILA",
+];
 
 let word = dict[Math.floor(Math.random() * dict.length)].split("");
 
 console.log(word);
+
+//ok there has to be a better way to store this info. Try implementing the algo you wrote here instead.
+
+let dubs = [];
+
+for (let i = 0; i < word.length; i++) {
+  let count = 0;
+  for (let j = 0; j < word.length; j++) {
+    if (word[i] === word[j]) {
+      count++;
+      console.log("ding, " + word[i]);
+      if (count > 1) {
+        dubs.push(word[i]);
+      }
+    }
+  }
+}
+
+console.log(dubs);
 
 let guess = [];
 
@@ -44,18 +95,40 @@ document.addEventListener("keypress", function (event) {
     if (guess.length === 5) {
       let dictChk = 0;
       let gComp = "";
+      //concatenate the individual letters together for a dictionary check
       for (let i = 0; i < guess.length; i++) {
         gComp += guess[i];
         console.log(guess[i]);
       }
+
+      //implement a check to see if guess is identical to gcomp here before worrying about letter positions and crap
+
+      //yes, here
+
+      //run dictionary check to ensure that the word exists
       for (let i = 0; i < dict.length; i++) {
         dictChk++;
+        //triggered if word is found
         if (gComp === dict[i]) {
           console.log("do individual letter validation here");
+          //needs a redesign with another nested for loop to check every individual letter's position and relevence
+
+          //not sure about the above statement but I do need to account for repeating letters in words, could possibly use a better system for storing and retrieving them.
+
+          for (let i = 0; i < 5; i++) {
+            for (let j = 0; j < 5; j++) {
+              if (guess[i] === word[j]) {
+                grid[i].style.backgroundColor = "Orange";
+              }
+              if (guess[i] === word[j] && i === j) {
+                grid[i].style.backgroundColor = "Green";
+              }
+            }
+          }
         }
       }
       if (dictChk === dict.length) {
-        alert("Word invalid, not in dictionary");
+        alert("Word invalid");
       }
     }
   }
