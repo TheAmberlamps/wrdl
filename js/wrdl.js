@@ -38,7 +38,7 @@ console.log(word);
 
 //ok there has to be a better way to store this info. Try implementing the algo you wrote here instead.
 
-let dubs = [];
+/*let dubs = [];
 
 for (let i = 0; i < word.length; i++) {
   let count = 0;
@@ -51,9 +51,27 @@ for (let i = 0; i < word.length; i++) {
       }
     }
   }
-}
+}*/
 
-console.log(dubs);
+// console.log(dubs);
+
+let Lc = [];
+
+for (let i = 0; i < word.length; i++) {
+  let curr = word[i];
+  Lc.push([word[i], 0]);
+  for (let j = 0; j < word.length; j++) {
+    if (curr === word[j]) {
+      console.log("Lc: " + Lc);
+      console.log(Lc[j]);
+      // there's an error occuring here but only when encountering a duplicate entry, chase down the bug
+      // are we even sure this is constructing a 2d array and not a string? console logging doesn't inspire confidence
+      console.log("Addition to Lc[j]: " + Lc[j]);
+      Lc[j][1]++;
+      console.log("Value after addition: " + Lc[j][1]);
+    }
+  }
+}
 
 let guess = [];
 
