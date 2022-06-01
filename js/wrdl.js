@@ -1,3 +1,5 @@
+//dictionary
+
 let dict = [
   "STORY",
   "ALIVE",
@@ -32,11 +34,13 @@ let dict = [
   "VOILA",
 ];
 
+//word randomly chosen from dictionary
+
 let word = dict[Math.floor(Math.random() * dict.length)].split("");
 
 console.log(word);
 
-//ok there has to be a better way to store this info. Try implementing the algo you wrote here instead.
+// deprecated algo to find and store duplicate letters
 
 /*let dubs = [];
 
@@ -51,31 +55,46 @@ for (let i = 0; i < word.length; i++) {
       }
     }
   }
-}*/
+}
 
-// console.log(dubs);
+console.log(dubs);*/
+
+// array to store duplicate letters and their amounts
 
 let Lc = [];
 
+// temp storage for value that may be pushed to Lc
+
+let curr = [];
+
+// algo to find repeating letters
+
 for (let i = 0; i < word.length; i++) {
-  let curr = word[i];
-  Lc.push([word[i], 0]);
+  curr = [[word[i]], [0]];
+  let currL = word[i];
+  console.log("curr: " + curr);
+  console.log("currL: " + currL);
   for (let j = 0; j < word.length; j++) {
-    if (curr === word[j]) {
-      console.log("Lc: " + Lc);
-      console.log(Lc[j]);
-      // there's an error occuring here but only when encountering a duplicate entry, chase down the bug
-      // are we even sure this is constructing a 2d array and not a string? console logging doesn't inspire confidence
-      console.log("Addition to Lc[j]: " + Lc[j]);
-      Lc[j][1]++;
-      console.log("Value after addition: " + Lc[j][1]);
+    if (currL === word[j]) {
+      curr[1]++;
+      if (curr[1] > 1) {
+        Lc.push(curr);
+      }
     }
   }
 }
 
+console.log(Lc);
+
+// storage for current guess' letters
+
 let guess = [];
 
+// the HTML elements used to display those letters
+
 let grid = document.getElementById("g1").getElementsByClassName("tile");
+
+// function used to populate and depopulate those elements
 
 function fillClr() {
   for (let i = 0; i < guess.length; i++) {
@@ -89,6 +108,8 @@ function fillClr() {
 }
 
 // may well have to rework these event listeners since they're accepting numbers and characters
+
+// keylisteners for population, depopulation and submission of guess array
 
 document.addEventListener("keydown", function (event) {
   if (event.key === "Backspace" && guess.length > 0) {
@@ -113,17 +134,30 @@ document.addEventListener("keypress", function (event) {
     if (guess.length === 5) {
       let dictChk = 0;
       let gComp = "";
+      let wComp = "";
+
       //concatenate the individual letters together for a dictionary check
+
       for (let i = 0; i < guess.length; i++) {
         gComp += guess[i];
+        wComp += word[i];
         console.log(guess[i]);
+        console.log(word[i]);
       }
 
-      //implement a check to see if guess is identical to gcomp here before worrying about letter positions and crap
+      // a check to see if guess is identical to word and skip a lot of logic
 
-      //yes, here
+      console.log(guess);
+      console.log(word);
+      if (gComp === wComp) {
+        for (let i = 0; i < grid.length; i++) {
+          grid[i].style.backgroundColor = "Green";
+        }
+        return alert("You win!");
+      }
 
       //run dictionary check to ensure that the word exists
+
       for (let i = 0; i < dict.length; i++) {
         dictChk++;
         //triggered if word is found
