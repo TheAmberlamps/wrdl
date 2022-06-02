@@ -86,13 +86,21 @@ for (let i = 0; i < word.length; i++) {
 
 console.log(Lc);
 
+// which of the 6 guesses the player is on
+
+let gNum = 1;
+
+let gridP = "g" + gNum;
+
+console.log("gridP: " + gridP);
+
 // storage for current guess' letters
 
 let guess = [];
 
 // the HTML elements used to display those letters
 
-let grid = document.getElementById("g1").getElementsByClassName("tile");
+let grid = document.getElementById(gridP).getElementsByClassName("tile");
 
 // function used to populate and depopulate those elements
 
@@ -112,7 +120,7 @@ function fillClr() {
 // keylisteners for population, depopulation and submission of guess array
 
 document.addEventListener("keydown", function (event) {
-  if (event.key === "Backspace" && guess.length > 0) {
+  if (event.key === "Backspace" && guess.length > 0 && gNum > 0) {
     console.log("popped");
     guess.splice(-1, 1);
     fillClr();
@@ -153,6 +161,7 @@ document.addEventListener("keypress", function (event) {
         for (let i = 0; i < grid.length; i++) {
           grid[i].style.backgroundColor = "Green";
         }
+        gNum = 0;
         return alert("You win!");
       }
 
@@ -160,7 +169,9 @@ document.addEventListener("keypress", function (event) {
 
       for (let i = 0; i < dict.length; i++) {
         dictChk++;
-        //triggered if word is found
+
+        //triggered if guess matches a word existing in the dictionary.
+
         if (gComp === dict[i]) {
           console.log("do individual letter validation here");
           //needs a redesign with another nested for loop to check every individual letter's position and relevence
@@ -177,10 +188,16 @@ document.addEventListener("keypress", function (event) {
               }
             }
           }
+          guess = [];
+          gNum++;
+          console.log("gNum: " + gNum);
+          gridP = "g" + gNum;
+          grid = document.getElementById(gridP).getElementsByClassName("tile");
+        } else {
+          if (dictChk === dict.length) {
+            alert("Word invalid");
+          }
         }
-      }
-      if (dictChk === dict.length) {
-        alert("Word invalid");
       }
     }
   }
