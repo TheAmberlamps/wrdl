@@ -160,6 +160,20 @@ document.addEventListener("keypress", function (event) {
       if (gComp === wComp) {
         for (let i = 0; i < grid.length; i++) {
           grid[i].style.backgroundColor = "Green";
+          console.log(
+            "grid[i].style.background: " + grid[i].style.backgroundColor
+          );
+          grid[i].style.opacity = 0;
+          console.log("grid[i].style.opacity: " + grid[i].style.opacity);
+          for (j = 0; j < 1; j += 0.1) {
+            //floating-point number systems blow. this 0.1 value isn't always being read as intended and needs to be sanitized.
+            //actually fuck that, this should be a function that is only invoked in every colour-opacity situation. That doesn't invalidate the previous statement, it's just that the only time this needs to happen is under very specific conditions.
+
+            console.log("j: " + j);
+            setInterval(10000, (grid[i].style.opacity = j));
+            grid[i].style.opacity = j;
+          }
+          console.log(grid[i].style);
         }
         gNum = 0;
         return alert("You win!");
@@ -195,7 +209,7 @@ document.addEventListener("keypress", function (event) {
           grid = document.getElementById(gridP).getElementsByClassName("tile");
         } else {
           if (dictChk === dict.length) {
-            alert("Word invalid");
+            alert("Word invalid or not found in our dictionary");
           }
         }
       }
