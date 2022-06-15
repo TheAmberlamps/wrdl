@@ -161,18 +161,18 @@ document.addEventListener("keypress", function (event) {
 
       // OK, this is where the actual construction is happening. The interval / colour logic is a mess currently, I know what needs to be done but achieving it is maddening.
 
-      // need a function to pass to setInterval. This is currently a test, I believe the next step is... hold on
+      //this loop is running out of control, might need a scrap and overhaul. what a pain...
+
+      //not just one loop remember, but a function called by a method inside another function. get simple, and sketch this out properly instead of stabbing in the dark
+
+      let fadeVal = 0;
 
       function fadeInTest() {
-        // for (i = 0; i < 1; i += 0.1) {
-        console.log("Ok, popped!");
-        console.log(fadeTime);
-      }
-
-      let fadeTime = 1000;
-
-      function winSet() {
-        for (let i = 0; i < grid.length; i++) {
+        for (i = fadeVal; i < 1; fadeVal += 0.1) {
+          console.log("Ok, popped!");
+          green.a += fadeVal;
+          console.log("green.a: " + green.a);
+          console.log("fadeVal: " + fadeVal);
           grid[i].style.background =
             "rgba(" +
             green.r +
@@ -183,8 +183,17 @@ document.addEventListener("keypress", function (event) {
             "," +
             green.a +
             ")";
+        }
+      }
+
+      fadeInTest();
+
+      let fadeTime = 1000;
+
+      function winSet() {
+        for (let i = 0; i < grid.length; i++) {
+          setInterval(fadeInTest, 100000);
           console.log("grid[i].style.background: " + grid[i].style.background);
-          setInterval(fadeInTest, fadeTime);
           fadeTime += 1000;
           console.log(fadeTime);
         }
