@@ -9,25 +9,25 @@ let dict = [
   "APPLE",
   "BREAK",
   "GROUP",
-  "CRABS",
-  "PALES",
+  "CRACK",
+  "PALED",
   "SORRY",
   "QUART",
   "OPENS",
   "CRATE",
-  "DEALS",
-  "FLEAS",
+  "DEALT",
+  "FLUTE",
   "HIRED",
-  "JERKS",
+  "JERKY",
   "LEAKY",
   "OPERA",
   "READY",
   "TEARY",
-  "VIALS",
+  "VITAL",
   "FLARE",
-  "HOURS",
-  "JEERS",
-  "LOBES",
+  "HORSE",
+  "JOUST",
+  "LEACH",
   "OUTRO",
   "RALLY",
   "TABLE",
@@ -153,28 +153,54 @@ document.addEventListener("keypress", function (event) {
         console.log(word[i]);
       }
 
+      //define colors by individual elements so that the alpha values can be changed dynamically
+
+      let green = { r: 59, b: 128, g: 4, a: 0 };
+
+      let orange = { r: 239, b: 164, g: 28, a: 0 };
+
+      // OK, this is where the actual construction is happening. The interval / colour logic is a mess currently, I know what needs to be done but achieving it is maddening.
+
+      // need a function to pass to setInterval. This is currently a test, I believe the next step is... hold on
+
+      function fadeInTest() {
+        // for (i = 0; i < 1; i += 0.1) {
+        console.log("Ok, popped!");
+        console.log(fadeTime);
+      }
+
+      let fadeTime = 1000;
+
+      function winSet() {
+        for (let i = 0; i < grid.length; i++) {
+          grid[i].style.background =
+            "rgba(" +
+            green.r +
+            "," +
+            green.b +
+            "," +
+            green.g +
+            "," +
+            green.a +
+            ")";
+          console.log("grid[i].style.background: " + grid[i].style.background);
+          setInterval(fadeInTest, fadeTime);
+          fadeTime += 1000;
+          console.log(fadeTime);
+        }
+      }
+
       // a check to see if guess is identical to word and skip a lot of logic
 
       console.log(guess);
       console.log(word);
+      //triggers if the guess is correct
       if (gComp === wComp) {
-        for (let i = 0; i < grid.length; i++) {
-          grid[i].style.backgroundColor = "Green";
-          console.log(
-            "grid[i].style.background: " + grid[i].style.backgroundColor
-          );
-          grid[i].style.opacity = 0;
-          console.log("grid[i].style.opacity: " + grid[i].style.opacity);
-          for (j = 0; j < 1; j += 0.1) {
-            //floating-point number systems blow. this 0.1 value isn't always being read as intended and needs to be sanitized.
-            //actually fuck that, this should be a function that is only invoked in every colour-opacity situation. That doesn't invalidate the previous statement, it's just that the only time this needs to happen is under very specific conditions.
+        // repackaging this into its own function, should help me immensely in applying it to guesses later.
+        // so the for-loop below is already a part of greenSet. Test it out before wrapping the nested loop into the new logic.
 
-            console.log("j: " + j);
-            setInterval(10000, (grid[i].style.opacity = j));
-            grid[i].style.opacity = j;
-          }
-          console.log(grid[i].style);
-        }
+        winSet();
+
         gNum = 0;
         return alert("You win!");
       }
