@@ -161,42 +161,51 @@ document.addEventListener("keypress", function (event) {
 
       // OK, this is where the actual construction is happening. The interval / colour logic is a mess currently, I know what needs to be done but achieving it is maddening.
 
-      //this loop is running out of control, might need a scrap and overhaul. what a pain...
+      // ------------------------------------------------------------------------------------------------------------------
 
-      //not just one loop remember, but a function called by a method inside another function. get simple, and sketch this out properly instead of stabbing in the dark
+      //ok, increments seem to be working properly. intervals are still messing me up but the next problem is math sanitation.
 
-      let fadeVal = 0;
+      //tightened-up my trashy logic by actually resetting the alpha value of green.
+
+      let fInt = 0.1;
+
+      let fIntF = fInt.toFixed(1);
+
+      let fIntS = parseFloat(fIntF);
 
       function fadeInTest() {
-        for (i = fadeVal; i < 1; fadeVal += 0.1) {
-          console.log("Ok, popped!");
-          green.a += fadeVal;
-          console.log("green.a: " + green.a);
-          console.log("fadeVal: " + fadeVal);
-          grid[i].style.background =
-            "rgba(" +
-            green.r +
-            "," +
-            green.b +
-            "," +
-            green.g +
-            "," +
-            green.a +
-            ")";
+        //runs throuhg to boxes in the current row
+        for (j = 0; j < grid.length; j++) {
+          //OK, so... the alpha values are roughly what I want for the fade-in to work. Even with DOUBLE sanitation the goddamn floating number is malfunctioning, but it may not matter.
+          //first, take a shot at incorporating this into the setInterval, or perhaps the other-way around?
+          //if there's still a problem with the alpha channels then take a crack at using positive numbers (10 out of 100, then 20 out of 100, etc.)
+          for (i = 0; i < 1; i += fIntS) {
+            console.log("Ok, popped! i: " + i);
+            console.log("j: " + j);
+            green.a = i;
+            console.log("green.a: " + green.a);
+            // console.log("fadeVal: " + i);
+            grid[j].style.background =
+              "rgba(" +
+              green.r +
+              "," +
+              green.b +
+              "," +
+              green.g +
+              "," +
+              green.a +
+              ")";
+            console.log(
+              "grid[j].style.background: " + grid[j].style.background
+            );
+          }
         }
       }
 
       fadeInTest();
 
-      let fadeTime = 1000;
-
       function winSet() {
-        for (let i = 0; i < grid.length; i++) {
-          setInterval(fadeInTest, 100000);
-          console.log("grid[i].style.background: " + grid[i].style.background);
-          fadeTime += 1000;
-          console.log(fadeTime);
-        }
+        setInterval(fadeInTest, 1000000);
       }
 
       // a check to see if guess is identical to word and skip a lot of logic
@@ -205,11 +214,7 @@ document.addEventListener("keypress", function (event) {
       console.log(word);
       //triggers if the guess is correct
       if (gComp === wComp) {
-        // repackaging this into its own function, should help me immensely in applying it to guesses later.
-        // so the for-loop below is already a part of greenSet. Test it out before wrapping the nested loop into the new logic.
-
         winSet();
-
         gNum = 0;
         return alert("You win!");
       }
