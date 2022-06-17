@@ -173,12 +173,19 @@ document.addEventListener("keypress", function (event) {
 
       let fIntS = parseFloat(fIntF);
 
+      //stackoverflow code here, will it help or hinder? Could be the iterator I've been looking for.
+      // ((i + 0.1).toFixed(1));
+
       function fadeInTest() {
         //runs throuhg to boxes in the current row
         for (j = 0; j < grid.length; j++) {
           //OK, so... the alpha values are roughly what I want for the fade-in to work. Even with DOUBLE sanitation the goddamn floating number is malfunctioning, but it may not matter.
           //first, take a shot at incorporating this into the setInterval, or perhaps the other-way around?
+
           //if there's still a problem with the alpha channels then take a crack at using positive numbers (10 out of 100, then 20 out of 100, etc.)
+
+          //stackoverflow code here, will it help or hinder? Could be the iterator I've been looking for. Try implementing this first.
+          // ((i + 0.1).toFixed(1));
           for (i = 0; i < 1; i += fIntS) {
             console.log("Ok, popped! i: " + i);
             console.log("j: " + j);
