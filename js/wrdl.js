@@ -173,47 +173,30 @@ document.addEventListener("keypress", function (event) {
 
       let fIntS = parseFloat(fIntF);
 
-      //stackoverflow code here, will it help or hinder? Could be the iterator I've been looking for.
-      // ((i + 0.1).toFixed(1));
+      function alphaChange(i, j) {
+        grid[i].style.background =
+          "rgba(" + green.r + "," + green.b + "," + green.g + "," + j + ")";
+        console.log("grid[i].style.background: " + grid[i].style.background);
+      }
 
       function fadeInTest() {
-        //runs throuhg to boxes in the current row
-        for (j = 0; j < grid.length; j++) {
-          //OK, so... the alpha values are roughly what I want for the fade-in to work. Even with DOUBLE sanitation the goddamn floating number is malfunctioning, but it may not matter.
-          //first, take a shot at incorporating this into the setInterval, or perhaps the other-way around?
-
-          //if there's still a problem with the alpha channels then take a crack at using positive numbers (10 out of 100, then 20 out of 100, etc.)
-
-          //stackoverflow code here, will it help or hinder? Could be the iterator I've been looking for. Try implementing this first.
-          // ((i + 0.1).toFixed(1));
-          for (i = 0; i < 1; i += fIntS) {
-            console.log("Ok, popped! i: " + i);
+        //runs through the boxes in the current row
+        for (let i = 0; i < grid.length; i++) {
+          //commented-out the previous attempt, going to try a while loop that sets color and increments alpha by .1
+          console.log("i: " + i);
+          let j = 0;
+          while (j < 1) {
+            j += 0.1;
             console.log("j: " + j);
-            green.a = i;
-            console.log("green.a: " + green.a);
-            // console.log("fadeVal: " + i);
-            grid[j].style.background =
-              "rgba(" +
-              green.r +
-              "," +
-              green.b +
-              "," +
-              green.g +
-              "," +
-              green.a +
-              ")";
-            console.log(
-              "grid[j].style.background: " + grid[j].style.background
-            );
+            setInterval(alphaChange(i, j), 5000);
           }
+          //if there's still a problem with the alpha channels then take a crack at using positive numbers (10 out of 100, then 20 out of 100, etc.)
         }
       }
 
-      fadeInTest();
+      //--------------------------------------------------------------------------------------------------------------------
 
-      function winSet() {
-        setInterval(fadeInTest, 1000000);
-      }
+      //ok it's time to try a CSS animation instead of wasting more hours on repackaging the same logic over and over again... left a chrome tab open that looks very promising.
 
       // a check to see if guess is identical to word and skip a lot of logic
 
@@ -221,7 +204,7 @@ document.addEventListener("keypress", function (event) {
       console.log(word);
       //triggers if the guess is correct
       if (gComp === wComp) {
-        winSet();
+        fadeInTest();
         gNum = 0;
         return alert("You win!");
       }
