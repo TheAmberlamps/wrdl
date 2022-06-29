@@ -23,6 +23,7 @@ let dict = [
   "OPERA",
   "READY",
   "TEARY",
+  "PLACE",
   "VITAL",
   "FLARE",
   "HORSE",
@@ -130,10 +131,8 @@ document.addEventListener("keydown", function (event) {
 
 document.addEventListener("keypress", function (event) {
   if (event.key !== "Enter" && guess.length < 5) {
-    console.log("works");
     guess.push(event.key.toUpperCase());
     fillClr();
-    console.log(guess);
   }
   if (event.key === "Enter") {
     if (guess.length < 5) {
@@ -153,58 +152,21 @@ document.addEventListener("keypress", function (event) {
         console.log(word[i]);
       }
 
-      //define colors by individual elements so that the alpha values can be changed dynamically
-
-      let green = { r: 59, b: 128, g: 4, a: 0 };
-
-      let orange = { r: 239, b: 164, g: 28, a: 0 };
-
-      // OK, this is where the actual construction is happening. The interval / colour logic is a mess currently, I know what needs to be done but achieving it is maddening.
-
-      // ------------------------------------------------------------------------------------------------------------------
-
-      //ok, increments seem to be working properly. intervals are still messing me up but the next problem is math sanitation.
-
-      //tightened-up my trashy logic by actually resetting the alpha value of green.
-
-      let fInt = 0.1;
-
-      let fIntF = fInt.toFixed(1);
-
-      let fIntS = parseFloat(fIntF);
-
-      function alphaChange(i, j) {
-        grid[i].style.background =
-          "rgba(" + green.r + "," + green.b + "," + green.g + "," + j + ")";
-        console.log("grid[i].style.background: " + grid[i].style.background);
-      }
-
-      function fadeInTest() {
-        //runs through the boxes in the current row
-        for (let i = 0; i < grid.length; i++) {
-          //commented-out the previous attempt, going to try a while loop that sets color and increments alpha by .1
-          console.log("i: " + i);
-          let j = 0;
-          while (j < 1) {
-            j += 0.1;
-            console.log("j: " + j);
-            setInterval(alphaChange(i, j), 5000);
-          }
-          //if there's still a problem with the alpha channels then take a crack at using positive numbers (10 out of 100, then 20 out of 100, etc.)
-        }
-      }
-
-      //--------------------------------------------------------------------------------------------------------------------
-
-      //ok it's time to try a CSS animation instead of wasting more hours on repackaging the same logic over and over again... left a chrome tab open that looks very promising.
+      console.log(guess);
+      console.log(word);
 
       // a check to see if guess is identical to word and skip a lot of logic
 
-      console.log(guess);
-      console.log(word);
       //triggers if the guess is correct
       if (gComp === wComp) {
-        fadeInTest();
+        for (let i = 0; i < grid.length; i++) {
+          //ok, I think I've found the exact spot to try implementing the CSS solution: right here. Try applying the commented-out code below to all grid styles
+          //animation: fadeBackground 6s;
+          // grid[i].style.backgroundColor = "Green";
+          //well it took a lot of fiddling to get it working properly but she's purring away now.
+          //if you want to look at making the letters fade in sequentially try taking this code apart and spreading it into and object, then modifying the delay before the animation starts.
+          grid[i].style.animation = "fadeG 6s ease 0s 1 forwards";
+        }
         gNum = 0;
         return alert("You win!");
       }

@@ -4,10 +4,28 @@
   height: 80px;
   border: 3px solid black;
   margin: 20px;
-  color: rgba(red, green, blue, alpha);
+  background-color: White;
 }
 
 #gameArea {
   display: grid;
   margin: auto;
+}
+
+@keyframes fadeG {
+  from {
+    background-color: White;
+  }
+  to {
+    background-color: Green;
+  }
+}
+
+@keyframes fadeOj {
+  from {
+    background-color: White;
+  }
+  to {
+    background-color: Orange;
+  }
 }
