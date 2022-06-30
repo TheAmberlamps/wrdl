@@ -29,3 +29,12 @@
     background-color: Orange;
   }
 }
+
+@keyframes fadeGrey {
+  from {
+    background-color: White;
+  }
+  to {
+    background-color: lightgray;
+  }
+}

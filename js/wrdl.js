@@ -27,7 +27,9 @@ let dict = [
   "VITAL",
   "FLARE",
   "HORSE",
+  "FIGHT",
   "JOUST",
+  "DOLLY",
   "LEACH",
   "OUTRO",
   "RALLY",
@@ -157,7 +159,6 @@ document.addEventListener("keypress", function (event) {
 
       // a check to see if guess is identical to word and skip a lot of logic
 
-      //triggers if the guess is correct
       if (gComp === wComp) {
         for (let i = 0; i < grid.length; i++) {
           //ok, I think I've found the exact spot to try implementing the CSS solution: right here. Try applying the commented-out code below to all grid styles
@@ -184,6 +185,10 @@ document.addEventListener("keypress", function (event) {
 
           //not sure about the above statement but I do need to account for repeating letters in words, could possibly use a better system for storing and retrieving them.
 
+          //ok, so far as i can see at the moment the place to insert logic checking for repeating characters is in the nested loop below. Firstly, figure out how to gray the letters.
+
+          //ugh, graying these out is going to be a bit more difficult than i thought. Taking a break now, will come back to this logic in a bit.
+
           for (let i = 0; i < 5; i++) {
             for (let j = 0; j < 5; j++) {
               if (guess[i] === word[j]) {
@@ -192,6 +197,19 @@ document.addEventListener("keypress", function (event) {
               if (guess[i] === word[j] && i === j) {
                 grid[i].style.backgroundColor = "Green";
               }
+            }
+          }
+          //genuinely not sure if the following code is working properly. Or rather, the issue seems to arise when applying animations to the code above instead of applying backgroundColor designations
+          for (let i = 0; i < 5; i++) {
+            let styleCheck = grid[i].style;
+            console.log(
+              "grid[i].style.backgroundColor: " + grid[i].style.backgroundColor
+            );
+            console.log("grid[i].style: " + grid[i].style);
+            console.log(styleCheck);
+            if (grid[i].style.backgroundColor === "") {
+              console.log("tripped");
+              grid[i].style.animation = "fadeGrey 6s ease 0s 1 forwards";
             }
           }
           guess = [];
