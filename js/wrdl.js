@@ -23,9 +23,11 @@ let dict = [
   "OPERA",
   "READY",
   "TEARY",
+  "QUIRK",
   "PLACE",
   "VITAL",
   "FLARE",
+  "CABLE",
   "HORSE",
   "FIGHT",
   "JOUST",
@@ -43,25 +45,6 @@ let word = dict[Math.floor(Math.random() * dict.length)].split("");
 
 console.log(word);
 
-// deprecated algo to find and store duplicate letters
-
-/*let dubs = [];
-
-for (let i = 0; i < word.length; i++) {
-  let count = 0;
-  for (let j = 0; j < word.length; j++) {
-    if (word[i] === word[j]) {
-      count++;
-      console.log("ding, " + word[i]);
-      if (count > 1) {
-        dubs.push(word[i]);
-      }
-    }
-  }
-}
-
-console.log(dubs);*/
-
 // array to store duplicate letters and their amounts
 
 let Lc = [];
@@ -75,8 +58,6 @@ let curr = [];
 for (let i = 0; i < word.length; i++) {
   curr = [[word[i]], [0]];
   let currL = word[i];
-  console.log("curr: " + curr);
-  console.log("currL: " + currL);
   for (let j = 0; j < word.length; j++) {
     if (currL === word[j]) {
       curr[1]++;
@@ -166,7 +147,7 @@ document.addEventListener("keypress", function (event) {
           // grid[i].style.backgroundColor = "Green";
           //well it took a lot of fiddling to get it working properly but she's purring away now.
           //if you want to look at making the letters fade in sequentially try taking this code apart and spreading it into and object, then modifying the delay before the animation starts.
-          grid[i].style.animation = "fadeG 6s ease 0s 1 forwards";
+          grid[i].style.animation = "fadeG 3s ease 0s 1 forwards";
         }
         gNum = 0;
         return alert("You win!");
@@ -193,23 +174,47 @@ document.addEventListener("keypress", function (event) {
             for (let j = 0; j < 5; j++) {
               if (guess[i] === word[j]) {
                 grid[i].style.backgroundColor = "Orange";
+                console.log(
+                  "grid[" +
+                    i +
+                    "].style.backgroundColor: " +
+                    grid[i].style.backgroundColor
+                );
               }
               if (guess[i] === word[j] && i === j) {
                 grid[i].style.backgroundColor = "Green";
+                console.log(
+                  "grid[" +
+                    i +
+                    "].style.backgroundColor: " +
+                    grid[i].style.backgroundColor
+                );
               }
             }
           }
           //genuinely not sure if the following code is working properly. Or rather, the issue seems to arise when applying animations to the code above instead of applying backgroundColor designations
+          //I think I've figured this out, it's a combination of trying to apply colourfades in the above code (before the actual color is designated, which is what that code is supposed to do) and not handling duplicate letters properly.
+          //I was right, fadeins are working properly now. Last step (?) is ironing out duplicate letters.
           for (let i = 0; i < 5; i++) {
             let styleCheck = grid[i].style;
             console.log(
-              "grid[i].style.backgroundColor: " + grid[i].style.backgroundColor
+              "grid[" +
+                i +
+                "].style.backgroundColor: " +
+                grid[i].style.backgroundColor
             );
-            console.log("grid[i].style: " + grid[i].style);
             console.log(styleCheck);
             if (grid[i].style.backgroundColor === "") {
-              console.log("tripped");
-              grid[i].style.animation = "fadeGrey 6s ease 0s 1 forwards";
+              console.log("tripGrey");
+              grid[i].style.animation = "fadeGrey 3s ease 0s 1 forwards";
+            }
+            if (grid[i].style.backgroundColor === "green") {
+              console.log("tripG");
+              grid[i].style.animation = "fadeG 3s ease 0s 1 forwards";
+            }
+            if (grid[i].style.backgroundColor === "orange") {
+              console.log("tripO");
+              grid[i].style.animation = "fadeOj 3s ease 0s 1 forwards";
             }
           }
           guess = [];
