@@ -1,41 +1,48 @@
 //dictionary
 
 let dict = [
-  "STORY",
+  "AGILE",
   "ALIVE",
-  "BLEAK",
-  "GLORY",
-  "SWORD",
   "APPLE",
+  "BLEAK",
+  "BOUND",
   "BREAK",
-  "GROUP",
+  "CABLE",
+  "CORKY",
   "CRACK",
-  "PALED",
-  "SORRY",
-  "QUART",
-  "OPENS",
   "CRATE",
   "DEALT",
-  "FLUTE",
-  "HIRED",
-  "JERKY",
-  "LEAKY",
-  "OPERA",
-  "READY",
-  "TEARY",
-  "QUIRK",
-  "PLACE",
-  "VITAL",
-  "FLARE",
-  "CABLE",
-  "HORSE",
-  "FIGHT",
-  "JOUST",
   "DOLLY",
+  "DOUBT",
+  "FIGHT",
+  "FLARE",
+  "FLUTE",
+  "GLIDE",
+  "GLORY",
+  "GROUP",
+  "HIRED",
+  "HORSE",
+  "JERKY",
+  "JOUST",
   "LEACH",
+  "LEAKY",
+  "MOUND",
+  "OPENS",
+  "OPERA",
   "OUTRO",
+  "PALED",
+  "PLACE",
+  "QUART",
+  "QUIRK",
   "RALLY",
+  "READY",
+  "RELAY",
+  "SORRY",
+  "STORY",
+  "SWORD",
   "TABLE",
+  "TEARY",
+  "VITAL",
   "VOILA",
 ];
 
@@ -61,8 +68,20 @@ for (let i = 0; i < word.length; i++) {
   for (let j = 0; j < word.length; j++) {
     if (currL === word[j]) {
       curr[1]++;
-      if (curr[1] > 1) {
+      //still passes the conditional below... i must be missing something. Take a hard, hard look at how this is all being juggled because the mystery lies here, guaranteed.
+      console.log("Lc: " + Lc);
+      console.log("curr: " + curr);
+      if (curr[1] > 1 && Lc.includes(curr[0][0]) === false) {
+        console.log("Lc: " + Lc);
+        console.log("Lc.includes(curr[0]): " + Lc.includes(curr[0]));
+        console.log("Lc.includes(curr[0][0]): " + Lc.includes(curr[0][0]));
+        console.log("curr being pushed: " + curr);
+        console.log("curr[0]: " + curr[0]);
+        console.log("curr[1]: " + curr[1]);
+        console.log("curr[0][0]: " + curr[0][0]);
+        console.log("curr[0][1]: " + curr[0][1]);
         Lc.push(curr);
+        console.log("Lc: " + Lc);
       }
     }
   }
@@ -100,6 +119,8 @@ function fillClr() {
 }
 
 // may well have to rework these event listeners since they're accepting numbers and characters
+
+// eh, they'll never pass the test because they don't belong in the dictionary. maybe add an alert if they try it?
 
 // keylisteners for population, depopulation and submission of guess array
 
@@ -142,11 +163,6 @@ document.addEventListener("keypress", function (event) {
 
       if (gComp === wComp) {
         for (let i = 0; i < grid.length; i++) {
-          //ok, I think I've found the exact spot to try implementing the CSS solution: right here. Try applying the commented-out code below to all grid styles
-          //animation: fadeBackground 6s;
-          // grid[i].style.backgroundColor = "Green";
-          //well it took a lot of fiddling to get it working properly but she's purring away now.
-          //if you want to look at making the letters fade in sequentially try taking this code apart and spreading it into and object, then modifying the delay before the animation starts.
           grid[i].style.animation = "fadeG 3s ease 0s 1 forwards";
         }
         gNum = 0;
@@ -161,14 +177,7 @@ document.addEventListener("keypress", function (event) {
         //triggered if guess matches a word existing in the dictionary.
 
         if (gComp === dict[i]) {
-          console.log("do individual letter validation here");
-          //needs a redesign with another nested for loop to check every individual letter's position and relevence
-
-          //not sure about the above statement but I do need to account for repeating letters in words, could possibly use a better system for storing and retrieving them.
-
-          //ok, so far as i can see at the moment the place to insert logic checking for repeating characters is in the nested loop below. Firstly, figure out how to gray the letters.
-
-          //ugh, graying these out is going to be a bit more difficult than i thought. Taking a break now, will come back to this logic in a bit.
+          //assigns the appropriate colour to squares
 
           for (let i = 0; i < 5; i++) {
             for (let j = 0; j < 5; j++) {
@@ -192,8 +201,6 @@ document.addEventListener("keypress", function (event) {
               }
             }
           }
-          //genuinely not sure if the following code is working properly. Or rather, the issue seems to arise when applying animations to the code above instead of applying backgroundColor designations
-          //I think I've figured this out, it's a combination of trying to apply colourfades in the above code (before the actual color is designated, which is what that code is supposed to do) and not handling duplicate letters properly.
           //I was right, fadeins are working properly now. Last step (?) is ironing out duplicate letters.
           for (let i = 0; i < 5; i++) {
             let styleCheck = grid[i].style;
