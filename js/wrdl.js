@@ -79,23 +79,36 @@ let curr = [];
 // algo to find repeating letters
 
 for (let i = 0; i < word.length; i++) {
-  curr = [[word[i]], [0]];
+  //defines variable
+  let curr = [[word[i]], [0]];
   let currL = word[i];
   for (let j = 0; j < word.length; j++) {
     if (currL === word[j]) {
       curr[1]++;
       //still passes the conditional below... i must be missing something. Take a hard, hard look at how this is all being juggled because the mystery lies here, guaranteed.
-      console.log("Lc: " + Lc);
       console.log("curr: " + curr);
-      if (curr[1] > 1 && Lc.includes(curr[0][0]) === false) {
-        console.log("Lc: " + Lc);
+      console.log("currL: " + currL);
+      console.log("curr[0]: " + curr[0]);
+      console.log("typeof currL: " + typeof currL);
+      console.log("typeof curr[0]: " + typeof curr[0]);
+      console.log("typeof curr[0][0]: " + typeof curr[0][0]);
+      //
+      if (currL === curr[0][0]) {
+        console.log("confirmed identical");
+      }
+      console.log("curr[1]: " + curr[1]);
+      console.log("Lc: " + Lc);
+      //damn it, so it turns out that I can't use the 'includes' method on an array containing objects.
+      //apparently I should be using the 'some' method, I've linked a scrap of code below and left open the tab that I grabbed it from
+      //if (arr.some(e => e.id === 2)) {
+      //read up on the method and stitch this up, then it's time for more painful interface issues kek
+      if (curr[1] > 1 && !Lc.includes(currL)) {
+        console.log("curr being pushed: " + curr);
         console.log("Lc.includes(curr[0]): " + Lc.includes(curr[0]));
         console.log("Lc.includes(curr[0][0]): " + Lc.includes(curr[0][0]));
-        console.log("curr being pushed: " + curr);
         console.log("curr[0]: " + curr[0]);
         console.log("curr[1]: " + curr[1]);
         console.log("curr[0][0]: " + curr[0][0]);
-        console.log("curr[0][1]: " + curr[0][1]);
         Lc.push(curr);
         console.log("Lc: " + Lc);
       }
