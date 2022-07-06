@@ -19,6 +19,7 @@ let dict = [
   "DOLLY",
   "DOUBT",
   "FAIRY",
+  "FERRY",
   "FIGHT",
   "FLARE",
   "FLUTE",
@@ -85,24 +86,25 @@ for (let i = 0; i < word.length; i++) {
   for (let j = 0; j < word.length; j++) {
     if (currL === word[j]) {
       curr[1]++;
-      //still passes the conditional below... i must be missing something. Take a hard, hard look at how this is all being juggled because the mystery lies here, guaranteed.
       console.log("curr: " + curr);
       console.log("currL: " + currL);
       console.log("curr[0]: " + curr[0]);
       console.log("typeof currL: " + typeof currL);
       console.log("typeof curr[0]: " + typeof curr[0]);
       console.log("typeof curr[0][0]: " + typeof curr[0][0]);
-      //
-      if (currL === curr[0][0]) {
-        console.log("confirmed identical");
-      }
       console.log("curr[1]: " + curr[1]);
       console.log("Lc: " + Lc);
       //damn it, so it turns out that I can't use the 'includes' method on an array containing objects.
       //apparently I should be using the 'some' method, I've linked a scrap of code below and left open the tab that I grabbed it from
       //if (arr.some(e => e.id === 2)) {
-      //read up on the method and stitch this up, then it's time for more painful interface issues kek
-      if (curr[1] > 1 && !Lc.includes(currL)) {
+      //ok so i need to use it as a function, which means replacing the previous 'includes' method. I've stored that method below, in case of emergency
+      //!Lc.includes(currL)
+      //after further reading and consideration I have decided to try the 'indexOf' method instead. It seems far simpler to implement, but I suppose we'll see.
+      //const index = arr.map(object => object.id).indexOf('c');
+      //this shit is driving me insane, how much time have i spent trying to make 2 + 2 equal 4?
+      //this can be done. look at the 'some' method again along with arrow statements. stop avoiding them because they're hard to understand, never stop learning and honing the craft.
+      console.log("Lc.indexOf(currL): " + Lc.indexOf(currL));
+      if (curr[1] > 1 && Lc.indexOf(currL) === -1) {
         console.log("curr being pushed: " + curr);
         console.log("Lc.includes(curr[0]): " + Lc.includes(curr[0]));
         console.log("Lc.includes(curr[0][0]): " + Lc.includes(curr[0][0]));
@@ -117,6 +119,8 @@ for (let i = 0; i < word.length; i++) {
 }
 
 console.log(Lc);
+
+//so i suppose the best way to do what i want to do is to remove duplicate entries AFTER the array is populated, right here. removing the dynamic aspect from this nonsense hopefully makes it fly straighter.
 
 // which of the 6 guesses the player is on
 
