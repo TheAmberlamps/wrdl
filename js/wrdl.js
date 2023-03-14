@@ -65,52 +65,11 @@ let dict = [
 
 //word randomly chosen from dictionary
 
-// let word = dict[Math.floor(Math.random() * dict.length)].split("");
+let word = dict[Math.floor(Math.random() * dict.length)].split("");
 
-let word = ["S", "T", "O", "R", "Y"];
+// let word = ["S", "T", "O", "R", "Y"];
 
 console.log(word);
-
-// array to store duplicate letters and their amounts
-
-let Lc = [];
-
-// temp storage for value that may be pushed to Lc
-
-let curr = [];
-
-// algo to find repeating letters in chosen word
-// need this duplicated to run on guess submission to get repeating characters
-
-for (let i = 0; i < word.length; i++) {
-  //defines variable
-  let curr = [[word[i]], [0]];
-  let currL = word[i];
-  for (let j = 0; j < word.length; j++) {
-    if (currL === word[j]) {
-      curr[1]++;
-      if (curr[1] > 1) {
-        Lc.push(curr);
-      }
-    }
-  }
-}
-
-console.log("Lc after population: " + Lc);
-
-//so i suppose the best way to do what i want to do is to remove duplicate entries AFTER the array is populated, right here. removing the dynamic aspect from this nonsense hopefully makes it fly straighter.
-//works like a charm!
-
-for (let i = 0; i < Lc.length; i++) {
-  let letR = Lc[i][0];
-  for (let j = Lc.length - 1; j > 0; j--) {
-    if (Lc[j][0] === letR) {
-      Lc.splice(j);
-    }
-  }
-}
-
-console.log("Lc: " + Lc);
 
 // which of the 6 guesses the player is on
 
@@ -144,10 +103,6 @@ function fillClr() {
 // may well have to rework these event listeners since they're accepting numbers and characters
 
 // eh, they'll never pass the test because they don't belong in the dictionary. maybe add an alert if they try it?
-
-// array to hold orange letters
-
-oJ = [];
 
 // keylisteners for population, depopulation and submission of guess array
 
@@ -204,30 +159,13 @@ document.addEventListener("keypress", function (event) {
         //triggered if guess matches a word existing in the dictionary.
 
         if (gComp === dict[i]) {
-          //assigns the appropriate colour to squares
+          // why slice? it creates a new array instead of a pointer.
+          let wordTmp = word.slice();
+
+          //logic to assign the appropriate colours to squares
 
           for (let i = 0; i < 5; i++) {
             for (let j = 0; j < 5; j++) {
-              if (
-                guess[i] === word[j] &&
-                grid[i].style.backgroundColor !== "green"
-              ) {
-                console.log(
-                  "Before set: grid[" +
-                    i +
-                    "].style.backgroundColor: " +
-                    grid[i].style.backgroundColor
-                );
-                grid[i].style.backgroundColor = "Orange";
-                console.log(
-                  "After set: grid[" +
-                    i +
-                    "].style.backgroundColor: " +
-                    grid[i].style.backgroundColor
-                );
-                oJ.push(guess[i]);
-                console.log("oJ: " + oJ);
-              }
               if (guess[i] === word[j] && i === j) {
                 grid[i].style.backgroundColor = "Green";
                 console.log(
@@ -236,10 +174,20 @@ document.addEventListener("keypress", function (event) {
                     "].style.backgroundColor: " +
                     grid[i].style.backgroundColor
                 );
+                wordTmp.splice(wordTmp.indexOf(guess[i]), 1);
+                console.log("wordTmp: " + wordTmp);
+                console.log("word: " + word);
               }
             }
           }
-          //I was right, fadeins are working properly now. Last step (?) is ironing out duplicate letters.
+
+          for (let i = 0; i < grid.length; i++) {
+            if (wordTmp.indexOf(grid[i].innerHTML) > -1) {
+              grid[i].style.backgroundColor = "Orange";
+            }
+          }
+
+          //Colour fadeins are working properly now.
           for (let i = 0; i < 5; i++) {
             let styleCheck = grid[i].style;
             console.log(
@@ -266,11 +214,12 @@ document.addEventListener("keypress", function (event) {
           console.log("gNum: " + gNum);
           gridP = "g" + gNum;
           grid = document.getElementById(gridP).getElementsByClassName("tile");
-        } else {
-          if (dictChk === dict.length) {
-            alert("Word invalid or not found in our dictionary");
-          }
         }
+        // else {
+        //   if (dictChk === dict.length) {
+        //     alert("Word invalid or not found in our dictionary");
+        //   }
+        // }
       }
     }
   }
