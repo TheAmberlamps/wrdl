@@ -65,7 +65,9 @@ let dict = [
 
 //word randomly chosen from dictionary
 
-let word = dict[Math.floor(Math.random() * dict.length)].split("");
+// let word = dict[Math.floor(Math.random() * dict.length)].split("");
+
+let word = ["S", "T", "O", "R", "Y"];
 
 console.log(word);
 
@@ -77,7 +79,8 @@ let Lc = [];
 
 let curr = [];
 
-// algo to find repeating letters
+// algo to find repeating letters in chosen word
+// need this duplicated to run on guess submission to get repeating characters
 
 for (let i = 0; i < word.length; i++) {
   //defines variable
@@ -142,6 +145,10 @@ function fillClr() {
 
 // eh, they'll never pass the test because they don't belong in the dictionary. maybe add an alert if they try it?
 
+// array to hold orange letters
+
+oJ = [];
+
 // keylisteners for population, depopulation and submission of guess array
 
 document.addEventListener("keydown", function (event) {
@@ -201,14 +208,25 @@ document.addEventListener("keypress", function (event) {
 
           for (let i = 0; i < 5; i++) {
             for (let j = 0; j < 5; j++) {
-              if (guess[i] === word[j]) {
-                grid[i].style.backgroundColor = "Orange";
+              if (
+                guess[i] === word[j] &&
+                grid[i].style.backgroundColor !== "green"
+              ) {
                 console.log(
-                  "grid[" +
+                  "Before set: grid[" +
                     i +
                     "].style.backgroundColor: " +
                     grid[i].style.backgroundColor
                 );
+                grid[i].style.backgroundColor = "Orange";
+                console.log(
+                  "After set: grid[" +
+                    i +
+                    "].style.backgroundColor: " +
+                    grid[i].style.backgroundColor
+                );
+                oJ.push(guess[i]);
+                console.log("oJ: " + oJ);
               }
               if (guess[i] === word[j] && i === j) {
                 grid[i].style.backgroundColor = "Green";
@@ -230,7 +248,6 @@ document.addEventListener("keypress", function (event) {
                 "].style.backgroundColor: " +
                 grid[i].style.backgroundColor
             );
-            console.log(styleCheck);
             if (grid[i].style.backgroundColor === "") {
               console.log("tripGrey");
               grid[i].style.animation = "fadeGrey 3s ease 0s 1 forwards";
