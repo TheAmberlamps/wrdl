@@ -7,6 +7,11 @@ let dict = [
   "AWFUL",
   "BAKER",
   "BLEAK",
+  "ALOUD",
+  "APPLY",
+  "DAILY",
+  "ROUND",
+  "CRAFT",
   "BOUND",
   "BREAK",
   "CABLE",
@@ -28,7 +33,9 @@ let dict = [
   "GLORY",
   "GROUP",
   "HAIRY",
+  "SHAFT",
   "HIRED",
+  "BLAST",
   "HORSE",
   "HOUSE",
   "JEERS",
@@ -48,10 +55,12 @@ let dict = [
   "PEACE",
   "PLACE",
   "QUART",
+  "PHASE",
   "QUIRK",
   "RALLY",
   "READY",
   "RELAY",
+  "THINK",
   "SORRY",
   "STORY",
   "SWORD",
@@ -382,20 +391,158 @@ let dict = [
   "COWER",
   "SQUAT",
   "PASTY",
+  [
+    "KEBAB",
+    "HINGE",
+    "BROOM",
+    "CHIRP",
+    "SABLE",
+    "GRASP",
+    "FABLE",
+    "CRISP",
+    "LOLLY",
+    "FLAIR",
+    "FUDGE",
+    "SMIRK",
+    "JOLLY",
+    "SWOOP",
+    "WINCE",
+    "SWIRL",
+    "SHUSH",
+    "GRIND",
+    "WAGON",
+    "BLUNT",
+    "SPOUT",
+    "JOUST",
+    "GUMMY",
+    "CRAVE",
+    "FABLE",
+    "MIRTH",
+    "FLANK",
+    "SQUIB",
+    "PRICK",
+    "WHISK",
+    "GRIEF",
+    "CLASP",
+    "SLINK",
+    "HUNCH",
+    "FRISK",
+    "STOMP",
+    "COWER",
+    "WINCE",
+    "FLICK",
+    "TUNIC",
+    "DREAR",
+    "WHARF",
+    "SABLE",
+    "GRIST",
+    "PRAWN",
+    "CHIVE",
+    "HERTZ",
+    "CRAVE",
+    "PIQUE",
+    "KNEAD",
+    "GOOEY",
+    "PLUSH",
+    "DROLL",
+    "SCUBA",
+    "WINCE",
+    "SWOOP",
+    "CLASP",
+    "PLUME",
+    "SIREN",
+    "GOOEY",
+    "FUDGE",
+    "FABLE",
+    "CRISP",
+    "FLAIR",
+    "GLAZE",
+    "MIRTH",
+    "PRICK",
+    "HINGE",
+    "GIDDY",
+    "GRASP",
+    "GLOOM",
+    "WARTY",
+    "FLAKY",
+    "BLUNT",
+    "BRAID",
+    "CAPER",
+    "CHASM",
+    "SCONE",
+    "SPORE",
+    "SKULK",
+    "SKIFF",
+    "TWEAK",
+    "TONIC",
+    "TINGE",
+    "TRICK",
+    "TRITE",
+    "TUMOR",
+    "NUDGE",
+    "NIPPY",
+    "NICHE",
+    "NITRO",
+    "NERVE",
+    "MURAL",
+    "MIRTH",
+    "MINCE",
+    "METRO",
+    "MAGMA",
+    "LURID",
+    "LUNGE",
+    "LOLLY",
+    "LUMIN",
+    "LUBED",
+    "KARMA",
+    "KIOSK",
+    "KNEEL",
+    "KLUTZ",
+    "KUDOS",
+    "JOLLY",
+    "JAZZY",
+    "JOUST",
+    "JOINT",
+    "JOLLY",
+    "JADED",
+    "HASTY",
+    "HAUNT",
+    "HAREM",
+    "HOUND",
+    "HOPED",
+    "GOOEY",
+    "GATOR",
+    "GAINS",
+    "FUSSY",
+    "FABLE",
+    "FRISK",
+    "FRUMP",
+    "FLUKE",
+    "FLAIR",
+    "FOLLY",
+    "EERIE",
+    "EMOTE",
+    "ELUDE",
+    "ELITE",
+    "ENEMA",
+    "EBONY",
+    "EDIFY",
+    "DUMPY",
+  ],
 ];
 
-let dictAdd = [];
+let dictAdd = ["ALERT", "AWARE", "GREAT", "YOUNG"];
 
 //for upper-casing new dictionary entries
-
-for (let i = 0; i < dictAdd.length; i++) {
-  console.log(dictAdd[i]);
-  console.log(typeof dictAdd[i]);
-  dictAdd[i] = dictAdd[i].toUpperCase();
-  console.log(dictAdd[i]);
-}
-
-console.log(dictAdd);
+// ALWAYS CONVERT ENTRIES TO STRING BEFORE RUNNING THIS
+// for (let i = 0; i < dictAdd.length; i++) {
+//   console.log(dictAdd[i]);
+//   console.log(typeof dictAdd[i]);
+//   dictAdd[i] = dictAdd[i].toUpperCase();
+//   console.log(dictAdd[i]);
+// }
+// console.log(dict);
+// console.log(dictAdd);
 
 //word randomly chosen from dictionary
 
@@ -458,6 +605,7 @@ document.addEventListener("keypress", function (event) {
     if (guess.length < 5) {
       alert("Not enough letters");
     }
+    // looks like some outdated code, dictChk in particular
     if (guess.length === 5) {
       let dictChk = 0;
       let gComp = "";
@@ -486,6 +634,7 @@ document.addEventListener("keypress", function (event) {
       }
 
       //run dictionary check to ensure that the word exists
+      //OK this... isn't doing anything?
 
       for (let i = 0; i < dict.length; i++) {
         dictChk++;
@@ -549,11 +698,6 @@ document.addEventListener("keypress", function (event) {
           gridP = "g" + gNum;
           grid = document.getElementById(gridP).getElementsByClassName("tile");
         }
-        // else {
-        //   if (dictChk === dict.length) {
-        //     alert("Word invalid or not found in our dictionary");
-        //   }
-        // }
       }
     }
   }
