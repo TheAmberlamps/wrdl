@@ -66,6 +66,7 @@ let dict = [
   "SWORD",
   "TABLE",
   "TEARY",
+  "TREAD",
   "TOUGH",
   "VALID",
   "VITAL",
@@ -320,6 +321,7 @@ let dict = [
   "WINCE",
   "HOVEL",
   "CHASM",
+  "WINDY",
   "SCOLD",
   "THUMP",
   "PACER",
@@ -606,6 +608,7 @@ document.addEventListener("keypress", function (event) {
       alert("Not enough letters");
     }
     // looks like some outdated code, dictChk in particular
+    // yeah this is completely unnecessary, and so is the for-loop underneath it; both the 'word' and the 'guess' are already stored in their respective arrays
     if (guess.length === 5) {
       let dictChk = 0;
       let gComp = "";
@@ -677,7 +680,8 @@ document.addEventListener("keypress", function (event) {
               "grid[" +
                 i +
                 "].style.backgroundColor: " +
-                grid[i].style.backgroundColor
+                grid[i].style.backgroundColor +
+                " firing inside of fadeIns"
             );
             if (grid[i].style.backgroundColor === "") {
               console.log("tripGrey");
@@ -693,6 +697,9 @@ document.addEventListener("keypress", function (event) {
             }
           }
           guess = [];
+          // added the gComp clear to address a weird bug. Not sure if it's actually working but further testing should make it clear
+          // OH I think I may know what's happening actually, this /would/ run multiple times if there are multiple instances of a word that exist in the dictionary, and there ARE repeat entries for some of these words...
+          gComp = "";
           gNum++;
           console.log("gNum: " + gNum);
           gridP = "g" + gNum;
