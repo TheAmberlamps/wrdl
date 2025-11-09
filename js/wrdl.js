@@ -607,28 +607,24 @@ document.addEventListener("keypress", function (event) {
     if (guess.length < 5) {
       alert("Not enough letters");
     }
-    // looks like some outdated code, dictChk in particular
-    // yeah this is completely unnecessary, and so is the for-loop underneath it; both the 'word' and the 'guess' are already stored in their respective arrays
+    // fixed a lot of nonsense, now words and guesses are being compared properly as long as they exist in the dictionary
     if (guess.length === 5) {
-      let dictChk = 0;
-      let gComp = "";
-      let wComp = "";
-
       //concatenate the individual letters together for a dictionary check
-
-      for (let i = 0; i < guess.length; i++) {
-        gComp += guess[i];
-        wComp += word[i];
-        console.log(guess[i]);
-        console.log(word[i]);
-      }
+      let gComp = guess.join('')
+      let wComp = word.join('')
 
       console.log(guess);
       console.log(word);
+      console.log(typeof guess)
+      console.log(typeof word)
+      console.log(gComp)
+      console.log(wComp)
+      console.log(typeof gComp)
+      console.log(typeof wComp)
 
       // a check to see if guess is identical to word and skip a lot of logic
 
-      if (gComp === wComp) {
+      if (gComp == wComp) {
         for (let i = 0; i < grid.length; i++) {
           grid[i].style.animation = "fadeG 3s ease 0s 1 forwards";
         }
@@ -640,7 +636,6 @@ document.addEventListener("keypress", function (event) {
       //OK this... isn't doing anything?
 
       for (let i = 0; i < dict.length; i++) {
-        dictChk++;
 
         //triggered if guess matches a word existing in the dictionary.
 
