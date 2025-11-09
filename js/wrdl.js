@@ -608,6 +608,8 @@ document.addEventListener("keypress", function (event) {
       alert("Not enough letters");
     }
     // fixed a lot of nonsense, now words and guesses are being compared properly as long as they exist in the dictionary
+    // create conditions for failure to guess correctly
+    // create a reset or new game option
     if (guess.length === 5) {
       //concatenate the individual letters together for a dictionary check
       let gComp = guess.join('')
@@ -694,6 +696,9 @@ document.addEventListener("keypress", function (event) {
           guess = [];
           // added the gComp clear to address a weird bug. Not sure if it's actually working but further testing should make it clear
           // OH I think I may know what's happening actually, this /would/ run multiple times if there are multiple instances of a word that exist in the dictionary, and there ARE repeat entries for some of these words...
+          // So it seems to be both; gComp being cleared avoids it matching any further entries in the dictionary.
+          // Now it's time to create win and lose conditions as well as colors being assigned properly
+          // After that implement a dictionary API to make sure that guesses are actual words
           gComp = "";
           gNum++;
           console.log("gNum: " + gNum);
