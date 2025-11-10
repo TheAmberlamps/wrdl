@@ -635,14 +635,23 @@ document.addEventListener("keypress", function (event) {
       }
 
       //run dictionary check to ensure that the word exists
-      //OK this... isn't doing anything?
 
-      for (let i = 0; i < dict.length; i++) {
+      let dictItem = 'https://freedictionaryapi.com/api/v1/entries/en/' + gComp.toLowerCase()
 
-        //triggered if guess matches a word existing in the dictionary.
+      console.log(dictItem)
 
-        if (gComp === dict[i]) {
-          // why slice? it creates a new array instead of a pointer.
+      fetch(dictItem).then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json(); // Or .text(), .blob(), etc., depending on expected response type
+      })
+      .then(data => {
+        console.log(data);
+        console.log(data.entries)
+        console.log(data.entries.length)
+        if (data.entries.length > 0) {
+          console.log(data.entries[0])
           let wordTmp = word.slice();
 
           //logic to assign the appropriate colours to squares
@@ -705,7 +714,13 @@ document.addEventListener("keypress", function (event) {
           gridP = "g" + gNum;
           grid = document.getElementById(gridP).getElementsByClassName("tile");
         }
-      }
+        else {
+          alert("Word not recognized")
+        }
+      })
+      .catch(error => {
+        console.error("Error fetching data:", error);
+      });
     }
   }
 });
