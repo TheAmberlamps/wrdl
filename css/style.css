@@ -10,11 +10,17 @@
   line-height: 80px;
   font-size: 60px;
   vertical-align: top;
+  position: relative;
 }
 
 #gameArea {
   display: grid;
   margin: auto;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%)
 }
 
 @keyframes fadeG {
