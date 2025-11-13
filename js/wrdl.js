@@ -655,13 +655,6 @@ document.addEventListener("keypress", function (event) {
           let wordTmp = word.slice();
 
           //logic to assign the appropriate colours to squares
-          
-          for (let i = 0; i < grid.length; i++) {
-            if (wordTmp.indexOf(grid[i].innerHTML) !== -1) {
-              grid[i].style.backgroundColor = "Orange";
-              console.log("screaming, this is actually doing something")
-            }
-          }
 
           for (let i = 0; i < 5; i++) {
             if (guess[i] === word[i]) {
@@ -675,6 +668,18 @@ document.addEventListener("keypress", function (event) {
               wordTmp.splice(wordTmp.indexOf(guess[i]), 1);
               console.log("wordTmp: " + wordTmp);
               console.log("word: " + word);
+            }
+          }
+
+          for (let i = 0; i < grid.length; i++) {
+            if (wordTmp.indexOf(grid[i].innerHTML) !== -1) {
+              let spliceIndex = wordTmp.indexOf(grid[i].innerHTML);
+              console.log("spliceIndex: " + spliceIndex);
+              console.log("Prior wordTmp: " + wordTmp);
+              wordTmp.splice(spliceIndex, 1);
+              console.log("After wordTmp: " + wordTmp);
+              grid[i].style.backgroundColor = "Orange";
+              console.log("screaming, this is actually doing something");
             }
           }
 
