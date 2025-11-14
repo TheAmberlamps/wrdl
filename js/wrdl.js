@@ -9,6 +9,7 @@ fetch('../dict.json')
     dict = data.dictionary
     console.log(dict)
     word = dict[Math.floor(Math.random() * dict.length)].split("");
+    console.log(word)
   })
 
 //word = dict[Math.floor(Math.random() * dict.length)].split("");
