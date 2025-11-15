@@ -2,7 +2,7 @@ let dict = []
 
 let word = ''
 
-fetch('../dict.json')
+fetch('./dict.json')
   .then(res => res.json())
   .then(data => {
     console.log(data)
