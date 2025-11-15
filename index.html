@@ -5,10 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="css/style.css" rel="stylesheet" />
-    <title>Document</title>
+    <title>Wrdl</title>
   </head>
   <body style="background-color: white";>
-    <img src="./images/dark-mode.png" id="modeSwitch" onmouseover="mouseOver(this)" onmouseout="mouseExit(this)"></img>
+    <h1 id="title" style="font-size: 50px" onclick=window.location.reload()>
+      <p>
+        <span style="color: Green">W</span>
+        <span style="color: Orange">R</span>
+        <span style="color: lightgray">D</span>
+        <span id="bigL" style="color: black">L</span>
+      </p>
+    </h1>
+    <img src="./images/dark-mode.png" id="modeSwitch" onmouseover="mouseOver(this)" onmouseout="mouseExit(this)" onclick="clickEvent(this)"></img>
     <div id="gameArea">
       <div id="g1">
         <div class="tile"></div>
@@ -55,20 +63,29 @@
       <script src="node_modules/kioskboard/dist/kioskboard-aio-2.2.0.min.js"></script>
       <script>
         function mouseOver(x) {
-          console.table("x: " + x)
-          console.table(x)
-          x.src = "./images/brightness.png"
-          document.body.style = "background-color: black";
-          x.style.height = "77px";
-          x.style.width = "77px";
+          x.style.height = "90px";
+          x.style.width = "90px";
           console.log("ENTERED")
         }
         function mouseExit(x) {
-          x.src = "./images/dark-mode.png"
-          document.body.style = "background-color: white;"
           x.style.height = "77px";
           x.style.width = "77px";
           console.log("EXITED")
+        }
+        function clickEvent(x) {
+          console.log(x.src)
+          let imgSrc = x.src.slice(x.src.indexOf("images"))
+          console.log(imgSrc)
+          if (imgSrc === "images/dark-mode.png") {
+            document.body.style.animation = "fadeW 1s ease 0s 1 forwards";
+            x.src = "./images/brightness.png"
+            document.getElementById("bigL").style="color:white"
+          }
+          else {
+            document.body.style.animation = "fadeB 1s ease 0s 1 forwards";
+            x.src = "./images/dark-mode.png"
+            document.getElementById("bigL").style="color:black"
+          }
         }
       </script>
       <script src="js/wrdl.js">        

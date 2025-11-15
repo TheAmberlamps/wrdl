@@ -17,6 +17,14 @@ body {
   position: relative;
 }
 
+#title {
+  display: grid;
+  justify-content: center;
+  position: absolute;
+  left: 45%;
+  top: -5%;
+}
+
 #gameArea {
   display: grid;
   margin: auto;
@@ -57,5 +65,23 @@ body {
   }
   to {
     background-color: lightgray;
+  }
+}
+
+@keyFrames fadeW {
+  from {
+    background-color: White;
+  }
+  to {
+    background-color: Black
+  }
+}
+
+@keyFrames fadeB {
+  from {
+    background-color: Black;
+  }
+  to  {
+    background-color: White
   }
 }
